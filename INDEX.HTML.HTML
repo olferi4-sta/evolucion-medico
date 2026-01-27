@@ -4,104 +4,102 @@
 <meta charset="UTF-8">
 <title>Evolución Clínica – Médico Interno HUEM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
-body{font-family:Arial;background:#f4f6f8;padding:20px}
-.container{max-width:1200px;margin:auto;background:#fff;padding:25px;border-radius:8px}
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f6f8;
+  padding:20px;
+}
+.container{
+  max-width:1100px;
+  margin:auto;
+  background:#fff;
+  padding:25px;
+  border-radius:8px;
+  box-shadow:0 4px 10px rgba(0,0,0,.1);
+}
 h1{color:#1e88e5}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
-input,select,textarea{padding:8px;border:1px solid #ccc;border-radius:5px;width:100%}
-button{background:#1e88e5;color:#fff;border:none;padding:10px 18px;border-radius:6px;margin-top:10px}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:12px;
+}
+input,select,textarea{
+  width:100%;
+  padding:8px;
+  border:1px solid #ccc;
+  border-radius:5px;
+}
 textarea{resize:vertical}
+button{
+  background:#1e88e5;
+  color:#fff;
+  border:none;
+  padding:10px 18px;
+  border-radius:6px;
+  cursor:pointer;
+}
+.section{
+  margin-top:25px;
+}
+.section h2{
+  background:#1e88e5;
+  color:#fff;
+  padding:8px;
+  border-radius:5px;
+  font-size:15px;
+}
 </style>
 </head>
 
 <body>
+
 <div class="container">
-<h1>Evolución Médico Interno – HUEM</h1>
+<h1>Evolución Clínica – Médico Interno HUEM</h1>
+<p><small>Simulación académica – HUEM</small></p>
 
-<form id="form">
+<form>
 
+<div class="section">
+<h2>1. Identificación</h2>
 <div class="grid">
-<select id="tipoDoc"><option value="">Tipo Doc</option><option>RC</option><option>TI</option><option>CC</option><option>CE</option><option>PS</option><option>SV</option></select>
-<input id="numDoc" placeholder="Documento">
-<input id="nombre" placeholder="Nombre completo">
-<input id="edad" type="number" placeholder="Edad">
-<select id="sexo"><option value="">Sexo</option><option>Masculino</option><option>Femenino</option></select>
-<select id="orientacion"><option value="">Orientación</option><option>Heterosexual</option><option>Homosexual</option><option>Bisexual</option></select>
-<select id="etnia"><option value="">Etnia</option><option>Mestizo</option><option>Afro</option><option>Indígena</option></select>
-<input id="pais" placeholder="País">
-<input id="ciudad" placeholder="Ciudad">
-<select id="discapacidad"><option value="">Discapacidad</option><option>No</option><option>Física</option><option>Sensorial</option></select>
-<select id="vacunado"><option value="">Vacunación</option><option>Sí</option><option>No</option></select>
-<input id="servicio" placeholder="Servicio">
-<input id="peso" type="number" placeholder="Peso kg">
-<input id="talla" type="number" placeholder="Talla cm">
-<input id="imc" placeholder="IMC">
-<input id="tas" placeholder="TA Sistólica">
-<input id="tad" placeholder="TA Diastólica">
-<input id="fc" placeholder="FC">
-<input id="fr" placeholder="FR">
-<input id="temp" placeholder="Temp">
-<input id="sato2" placeholder="Sat O2">
-<input id="glasgow" placeholder="Glasgow">
+<select><option>Tipo documento</option><option>CC</option><option>TI</option></select>
+<input placeholder="Número documento">
+<input placeholder="Nombre completo">
+<input type="number" placeholder="Edad">
+<select><option>Sexo</option><option>Masculino</option><option>Femenino</option></select>
+</div>
 </div>
 
-<textarea id="subjetivo" placeholder="Subjetivo"></textarea>
-<textarea id="analisis" placeholder="Análisis"></textarea>
+<div class="section">
+<h2>2. Signos vitales</h2>
+<div class="grid">
+<input placeholder="Peso (kg)">
+<input placeholder="Talla (cm)">
+<input placeholder="IMC">
+<input placeholder="TA Sistólica">
+<input placeholder="TA Diastólica">
+<input placeholder="Glasgow">
+</div>
+</div>
 
-<select id="dieta"><option value="">Dieta</option><option>Libre</option><option>Blanda</option></select>
-<textarea id="plan" placeholder="Plan"></textarea>
-<input id="dx" placeholder="Diagnóstico CIE-10">
+<div class="section">
+<h2>3. Evolución</h2>
+<textarea rows="4" placeholder="Subjetivo"></textarea>
+<textarea rows="4" placeholder="Análisis"></textarea>
+</div>
 
-<button type="button" onclick="enviar()">Enviar evolución</button>
+<div class="section">
+<h2>4. Plan</h2>
+<textarea rows="4" placeholder="Plan terapéutico"></textarea>
+</div>
+
+<br>
+<button type="submit">Enviar evolución</button>
 
 </form>
 </div>
-
-<script>
-function enviar(){
-
-const resultado = "ENVIADA";
-
-const data = {
-  tipoDoc: tipoDoc.value,
-  numDoc: numDoc.value,
-  nombre: nombre.value,
-  edad: edad.value,
-  sexo: sexo.value,
-  orientacion: orientacion.value,
-  etnia: etnia.value,
-  pais: pais.value,
-  ciudad: ciudad.value,
-  discapacidad: discapacidad.value,
-  vacunado: vacunado.value,
-  servicio: servicio.value,
-  peso: peso.value,
-  talla: talla.value,
-  imc: imc.value,
-  tas: tas.value,
-  tad: tad.value,
-  fc: fc.value,
-  fr: fr.value,
-  temp: temp.value,
-  sato2: sato2.value,
-  glasgow: glasgow.value,
-  subjetivo: subjetivo.value,
-  analisis: analisis.value,
-  dieta: dieta.value,
-  plan: plan.value,
-  dx: dx.value,
-  resultado: resultado
-};
-
-fetch("https://script.google.com/macros/s/AKfycbyDW1c4sWAdEgtMZMCF4m7GEZnVHfqCdqcibJCeit8yNZcwW9ppVxQk_7qZpmvllPdq/exec",{
-  method:"POST",
-  body:JSON.stringify(data)
-})
-.then(()=>alert("Evolución enviada correctamente"))
-.catch(()=>alert("Error al enviar"));
-}
-</script>
 
 </body>
 </html>
