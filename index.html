@@ -215,6 +215,8 @@ ul{padding-left:20px}
 <button type="submit">Validar evolución</button>
 <button type="button" class="secondary" onclick="window.print()">Descargar PDF</button>
 <button type="button" class="secondary" onclick="descargarCSV()">Descargar CSV</button>
+<button type="button" class="secondary" onclick="enviarSheets()">Enviar evolución</button>
+
 </div>
 
 </form>
@@ -301,7 +303,58 @@ function descargarCSV(){
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 }
+  <script>
+function enviarSheets(){
+
+  const data = {
+    fecha: new Date().toISOString(),
+    tipoDoc: document.getElementById("tipoDoc").value,
+    numDoc: document.getElementById("numDoc").value,
+    nombre: document.getElementById("nombre").value,
+    edad: document.getElementById("edad").value,
+    sexo: document.getElementById("sexo").value,
+    orientacion: document.getElementById("orientacion").value,
+    etnia: document.getElementById("etnia").value,
+    pais: document.getElementById("pais").value,
+    ciudad: document.getElementById("ciudad").value,
+    discapacidad: document.getElementById("discapacidad").value,
+    servicio: document.getElementById("servicio").value,
+    peso: document.getElementById("peso").value,
+    talla: document.getElementById("talla").value,
+    imc: document.getElementById("imc").value,
+    tas: document.getElementById("tas").value,
+    tad: document.getElementById("tad").value,
+    fc: document.getElementById("fc").value,
+    fr: document.getElementById("fr").value,
+    temp: document.getElementById("temp").value,
+    sato2: document.getElementById("sato2").value,
+    glasgow: document.getElementById("glasgow").value,
+    dieta: document.getElementById("dieta").value,
+    subjetivo: document.getElementById("subjetivo").value,
+    analisis: document.getElementById("analisis").value,
+    plan: document.getElementById("plan").value,
+    dx: document.getElementById("dx").value,
+    conforme: document.getElementById("resultado")
+               .textContent.includes("APTA") ? "SI" : "NO"
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbxmjXNTYVDQBDZww9kwK7rMD8ANihP8OoIDeyGFmYye6Ntyup7FQyroWblxkZVT0URB/exec", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: { "Content-Type": "application/json" }
+  })
+  .then(() => {
+    alert("✔ Evolución enviada y almacenada correctamente");
+    document.getElementById("form").reset();
+  })
+  .catch(() => {
+    alert("❌ Error al enviar la información");
+  });
+}
+</script>
+
 </script>
 
 </body>
 </html>
+
