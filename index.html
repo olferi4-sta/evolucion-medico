@@ -6,73 +6,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-:root{
-  --azul:#1e88e5;
-  --gris:#f4f6f8;
-}
-body{
-  font-family:Segoe UI, Arial, sans-serif;
-  background:var(--gris);
-  margin:0;
-  padding:20px;
-}
-.container{
-  max-width:1200px;
-  margin:auto;
-  background:#fff;
-  padding:25px;
-  border-radius:8px;
-  box-shadow:0 4px 12px rgba(0,0,0,.08);
-}
-.header{
-  border-bottom:4px solid var(--azul);
-  margin-bottom:20px;
-}
-.header h1{color:var(--azul);margin:0}
-small{color:#555}
+:root{--azul:#1e88e5;--gris:#f4f6f8}
+body{font-family:Segoe UI,Arial;background:var(--gris);padding:20px}
+.container{max-width:1200px;margin:auto;background:#fff;padding:25px;border-radius:8px}
+.header{border-bottom:4px solid var(--azul);margin-bottom:20px}
 .section{margin-top:25px}
-.section h2{
-  background:var(--azul);
-  color:#fff;
-  padding:8px 12px;
-  border-radius:6px;
-  font-size:15px;
-}
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:12px;
-  margin-top:12px;
-}
-input, select, textarea{
-  width:100%;
-  padding:8px;
-  border:1px solid #ccc;
-  border-radius:5px;
-  font-size:14px;
-}
-textarea{resize:vertical}
-.actions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:20px;
-}
-button{
-  background:var(--azul);
-  color:#fff;
-  border:none;
-  padding:10px 18px;
-  border-radius:6px;
-  cursor:pointer;
-}
+.section h2{background:var(--azul);color:#fff;padding:8px;border-radius:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+input,select,textarea{width:100%;padding:8px;border:1px solid #ccc;border-radius:5px}
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+button{background:var(--azul);color:#fff;border:none;padding:10px 18px;border-radius:6px}
 button.secondary{background:#6c757d}
-.error{color:#b00020;margin-top:10px}
-.ok{color:#1b5e20;font-weight:bold;margin-top:10px}
-ul{padding-left:20px}
-@media print{
-  button,.actions{display:none}
-}
+.error{color:#b00020}.ok{color:#1b5e20;font-weight:bold}
+@media print{button,.actions{display:none}}
 </style>
 </head>
 
@@ -81,30 +27,30 @@ ul{padding-left:20px}
 
 <div class="header">
 <h1>Evolución Clínica – Médico Interno</h1>
-<small>E.S.E Hospital Universitario Erasmo Meoz · Simulación académica</small>
+<small>Hospital Universitario Erasmo Meoz · Simulación académica</small>
 </div>
 
 <form id="form">
 
 <!-- IDENTIFICACIÓN -->
 <div class="section">
-<h2>1. Identificación del paciente</h2>
+<h2>1. Identificación</h2>
 <div class="grid">
-<select id="tipoDoc">
-<option value="">Tipo documento</option>
-<option>RC</option><option>TI</option><option>CC</option>
-<option>CE</option><option>PS</option><option>SV</option>
-</select>
-<input id="numDoc" placeholder="Número documento">
+<select id="tipoDoc"><option value="">Tipo Doc</option><option>RC</option><option>TI</option><option>CC</option><option>CE</option><option>PS</option><option>SV</option></select>
+<input id="numDoc" placeholder="Documento">
 <input id="nombre" placeholder="Nombre completo">
 <input type="number" id="edad" placeholder="Edad">
+<select id="sexo"><option value="">Sexo</option><option>Masculino</option><option>Femenino</option><option>Intersexual</option></select>
+<select id="orientacion"><option value="">Orientación</option><option>Heterosexual</option><option>Homosexual</option><option>Bisexual</option><option>Otro</option></select>
+<select id="etnia"><option value="">Etnia</option><option>Mestizo</option><option>Afrodescendiente</option><option>Indígena</option><option>ROM</option></select>
+<select id="discapacidad"><option value="">Discapacidad</option><option>No</option><option>Física</option><option>Sensorial</option><option>Cognitiva</option></select>
 <input id="servicio" placeholder="Servicio">
 </div>
 </div>
 
 <!-- SIGNOS -->
 <div class="section">
-<h2>2. Signos vitales</h2>
+<h2>2. Signos Vitales</h2>
 <div class="grid">
 <input type="number" id="peso" placeholder="Peso (kg)" oninput="imcCalc()">
 <input type="number" id="talla" placeholder="Talla (cm)" oninput="imcCalc()">
@@ -118,22 +64,16 @@ ul{padding-left:20px}
 
 <!-- EVOLUCIÓN -->
 <div class="section">
-<h2>3. Evolución clínica</h2>
-<textarea id="subjetivo" placeholder="Subjetivo (mínimo 30 caracteres)"></textarea>
-<textarea id="analisis" placeholder="Análisis clínico (mínimo 50 caracteres)"></textarea>
+<h2>3. Evolución</h2>
+<textarea id="subjetivo" placeholder="Subjetivo (≥30)"></textarea>
+<textarea id="analisis" placeholder="Análisis (≥50)"></textarea>
 </div>
 
 <!-- PLAN -->
 <div class="section">
-<h2>4. Plan terapéutico</h2>
-<select id="dieta">
-<option value="">Dieta</option>
-<option>Libre</option>
-<option>Blanda</option>
-<option>Hiposódica</option>
-<option>Diabética</option>
-</select>
-<textarea id="plan" placeholder="Plan (mínimo 30 caracteres)"></textarea>
+<h2>4. Plan</h2>
+<select id="dieta"><option value="">Dieta</option><option>Libre</option><option>Blanda</option><option>Hiposódica</option><option>Diabética</option></select>
+<textarea id="plan" placeholder="Plan (≥30)"></textarea>
 </div>
 
 <!-- DX -->
@@ -145,7 +85,6 @@ ul{padding-left:20px}
 <div class="section">
 <h2>6. Auditoría</h2>
 <p id="resultado"></p>
-<ul id="check"></ul>
 </div>
 
 <div id="errores" class="error"></div>
@@ -155,7 +94,7 @@ ul{padding-left:20px}
 <button type="submit">Validar</button>
 <button type="button" class="secondary" onclick="window.print()">PDF</button>
 <button type="button" class="secondary" onclick="descargarCSV()">CSV</button>
-<button type="button" class="secondary" onclick="enviarSheets()">Enviar evolución</button>
+<button type="button" class="secondary" onclick="enviarSheets()">Enviar</button>
 </div>
 
 </form>
@@ -163,8 +102,8 @@ ul{padding-left:20px}
 
 <script>
 function imcCalc(){
-  const p=peso.value, t=talla.value;
-  if(p&&t) imc.value=(p/Math.pow(t/100,2)).toFixed(1);
+  if(peso.value&&talla.value)
+    imc.value=(peso.value/Math.pow(talla.value/100,2)).toFixed(1);
 }
 
 form.addEventListener("submit",e=>{
@@ -177,51 +116,32 @@ form.addEventListener("submit",e=>{
   if(!dx.value) err.push("CIE-10 obligatorio");
   errores.innerHTML=err.join("<br>");
   ok.innerHTML=err.length===0?"EVOLUCIÓN CONFORME":"";
-  auditoria();
+  resultado.textContent=err.length===0?"APTA PARA AUDITORÍA Y RIPS":"NO CONFORME";
 });
 
-function auditoria(){
-  const items=[
-    ["Identificación",tipoDoc.value&&numDoc.value],
-    ["IMC",imc.value],
-    ["Glasgow",glasgow.value>=3&&glasgow.value<=15],
-    ["Diagnóstico",dx.value]
-  ];
-  check.innerHTML="";
-  let conforme=true;
-  items.forEach(i=>{
-    const li=document.createElement("li");
-    li.textContent=i[0]+": "+(i[1]?"CUMPLE":"NO CUMPLE");
-    if(!i[1]) conforme=false;
-    check.appendChild(li);
-  });
-  resultado.textContent=conforme?"APTA PARA AUDITORÍA Y RIPS":"NO CONFORME";
-}
-
 function descargarCSV(){
-  const csv=[
-    ["Documento","Paciente","IMC","DX"],
-    [numDoc.value,nombre.value,imc.value,dx.value]
-  ].map(r=>r.join(",")).join("\n");
-  const blob=new Blob([csv],{type:"text/csv"});
+  const csv=[["Documento","Paciente","Sexo","Etnia","Discapacidad","IMC","DX"],
+  [numDoc.value,nombre.value,sexo.value,etnia.value,discapacidad.value,imc.value,dx.value]]
+  .map(r=>r.join(",")).join("\n");
   const a=document.createElement("a");
-  a.href=URL.createObjectURL(blob);
-  a.download="evolucion.csv";
-  a.click();
+  a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
+  a.download="evolucion.csv";a.click();
 }
 
 function enviarSheets(){
   fetch("https://script.google.com/macros/s/AKfycbxmjXNTYVDQBDZww9kwK7rMD8ANihP8OoIDeyGFmYye6Ntyup7FQyroWblxkZVT0URB/exec",{
     method:"POST",
     body:JSON.stringify({
-      fecha:new Date().toISOString(),
       documento:numDoc.value,
       nombre:nombre.value,
-      servicio:servicio.value,
+      sexo:sexo.value,
+      orientacion:orientacion.value,
+      etnia:etnia.value,
+      discapacidad:discapacidad.value,
       imc:imc.value,
       dx:dx.value
     })
-  }).then(()=>alert("✔ Enviado a Google Sheets"));
+  }).then(()=>alert("✔ Guardado en Google Sheets"));
 }
 </script>
 
