@@ -220,7 +220,7 @@ function enviarSheets(){
   formData.append("glasgow", glasgow.value);
   formData.append("medicamentos", medicamentos.value);
 
-  fetch("https://script.google.com/macros/s/AKfycbxsoRYabZQaRGD_5zPPcY0M3OBs-1JA8ctEoJjRp6yoagV4YKpFCWlpoqRuPoDpUVs/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbyBeGc4agfj8PMyrW0mlO1OD6SUu8_kbZZIXRhFbe5j86IngKHNrlLfaEk7B12cTHZ1/exec", {
     method: "POST",
     body: formData
   });
@@ -239,6 +239,7 @@ ${estudiante.value},${tipoDoc.value}-${numDoc.value},${nombre.value},${cie10Prin
 </script>
 </body>
 </html>
+
 
 
 
