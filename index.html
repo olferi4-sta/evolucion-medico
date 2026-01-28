@@ -21,7 +21,7 @@ button.secondary{background:#6c757d}
 .error{color:#b00020;margin-top:10px}
 .ok{color:#1b5e20;font-weight:bold;margin-top:10px}
 
-@media print{button,.actions{display:none}}
+@media print{button,.actions,#btnMovil{display:none}}
 
 @media (max-width:768px){
  body{padding:10px}
@@ -109,21 +109,27 @@ button.secondary{background:#6c757d}
 <select id="cie10Principal">
 <option value="">Seleccione diagnóstico</option>
 <option value="I21">I21 – Infarto agudo del miocardio</option>
-<option value="I21.0">I21.0 – IAM pared anterior</option>
-<option value="I21.1">I21.1 – IAM pared inferior</option>
-<option value="I21.2">I21.2 – IAM otras localizaciones</option>
-<option value="I22">I22 – Infarto recurrente</option>
+<option value="I21.0">IAM pared anterior</option>
+<option value="I21.1">IAM pared inferior</option>
+<option value="I21.2">IAM otras localizaciones</option>
+<option value="I22">Infarto recurrente</option>
 </select>
 <input id="cie10Relacionado" placeholder="Diagnóstico relacionado (opcional)">
 </div>
 
-<!-- INDICACIONES -->
+<!-- 6. INDICACIONES MÉDICAS (SIN CAMBIOS) -->
 <div class="section">
 <h2>6. Indicaciones médicas</h2>
 <textarea id="medicamentos" placeholder="Medicamentos (mínimo 30 caracteres)"></textarea>
 <textarea id="paraclinicos" placeholder="Paraclínicos"></textarea>
 <textarea id="cuidados" placeholder="Cuidados generales"></textarea>
-<select id="dieta"><option value="">Dieta</option><option>Libre</option><option>Blanda</option><option>Hiposódica</option><option>Diabética</option></select>
+<select id="dieta">
+<option value="">Dieta</option>
+<option>Libre</option>
+<option>Blanda</option>
+<option>Hiposódica</option>
+<option>Diabética</option>
+</select>
 </div>
 
 <!-- AUDITORÍA -->
@@ -149,27 +155,30 @@ button.secondary{background:#6c757d}
 <button id="btnMovil"
 style="position:fixed;bottom:15px;right:15px;background:#1e88e5;color:#fff;
 padding:14px;border-radius:50%;border:none;font-size:18px;z-index:999"
-onclick="form.requestSubmit()">✔</button>
+onclick="document.getElementById('form').requestSubmit()">✔</button>
 
 <script>
 let resultadoConforme=false;
 
 function imcCalc(){
- if(peso.value && talla.value)
- imc.value=(peso.value/Math.pow(talla.value/100,2)).toFixed(1);
+ if(peso.value && talla.value){
+   imc.value=(peso.value/Math.pow(talla.value/100,2)).toFixed(1);
+ }
 }
 
 form.addEventListener("submit",e=>{
  e.preventDefault();
  let err=[];
+
  if(!estudiante.value) err.push("Nombre del estudiante obligatorio");
- if(!cie10Principal.value) err.push("Diagnóstico IAM obligatorio");
  if(subjetivo.value.length<30) err.push("Subjetivo insuficiente");
  if(analisis.value.length<50) err.push("Análisis insuficiente");
+ if(!cie10Principal.value) err.push("Diagnóstico IAM obligatorio");
 
  errores.innerHTML=err.join("<br>");
- ok.innerHTML=err.length===0?"EVOLUCIÓN CONFORME":"";
  resultadoConforme=err.length===0;
+ ok.innerHTML=resultadoConforme?"EVOLUCIÓN CONFORME":"";
+
  auditoriaAutomatica();
 });
 
@@ -193,10 +202,12 @@ function enviarSheets(){
 }
 
 function descargarCSV(){
- const csv=`Estudiante,Paciente,DX,IMC,Temperatura\n${estudiante.value},${nombre.value},${cie10Principal.value},${imc.value},${temperatura.value}`;
+ const csv=`Estudiante,Paciente,DX,IMC,Temperatura
+${estudiante.value},${nombre.value},${cie10Principal.value},${imc.value},${temperatura.value}`;
  const a=document.createElement("a");
  a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
- a.download="evolucion_clinica.csv";a.click();
+ a.download="evolucion_clinica.csv";
+ a.click();
 }
 </script>
 
