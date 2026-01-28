@@ -4,22 +4,20 @@
 <meta charset="UTF-8">
 <title>Evolución Clínica – Médico Interno HUEM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <style>
 :root{--azul:#1e88e5;--gris:#f4f6f8}
 body{font-family:Segoe UI,Arial;background:var(--gris);padding:20px}
 .container{max-width:1200px;margin:auto;background:#fff;padding:25px;border-radius:8px}
-.header{border-bottom:4px solid var(--azul);margin-bottom:20px}
 .section{margin-top:25px}
-.section h2{background:var(--azul);color:#fff;padding:8px;border-radius:6px;font-size:15px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.section h2{background:var(--azul);color:#fff;padding:8px;border-radius:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 input,select,textarea{width:100%;padding:8px;border:1px solid #ccc;border-radius:5px}
-textarea{resize:vertical;min-height:80px}
+textarea{resize:vertical}
 .actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
 button{background:var(--azul);color:#fff;border:none;padding:10px 18px;border-radius:6px}
 button.secondary{background:#6c757d}
-.error{color:#b00020}
-.ok{color:#1b5e20;font-weight:bold}
+.error{color:#b00020}.ok{color:#1b5e20;font-weight:bold}
+.dxbox{border:1px solid #ccc;padding:10px;border-radius:6px}
 @media print{button,.actions{display:none}}
 </style>
 </head>
@@ -27,9 +25,13 @@ button.secondary{background:#6c757d}
 <body>
 <div class="container">
 
-<div class="header">
 <h1>Evolución Clínica – Médico Interno</h1>
-<small>E.S.E Hospital Universitario Erasmo Meoz · Simulación académica</small>
+<small>Hospital Universitario Erasmo Meoz · Simulación académica</small>
+
+<!-- ESTUDIANTE -->
+<div class="section">
+<h2>Acceso estudiante</h2>
+<input id="estudiante" placeholder="Nombre o código del estudiante">
 </div>
 
 <form id="form">
@@ -38,50 +40,23 @@ button.secondary{background:#6c757d}
 <div class="section">
 <h2>1. Identificación del paciente</h2>
 <div class="grid">
-<select id="tipoDoc"><option value="">Tipo documento</option><option>RC</option><option>TI</option><option>CC</option><option>CE</option><option>PS</option><option>SV</option></select>
-<input id="numDoc" placeholder="Número documento">
+<select id="tipoDoc"><option value="">Tipo Doc</option><option>CC</option><option>TI</option><option>CE</option></select>
+<input id="numDoc" placeholder="Documento">
 <input id="nombre" placeholder="Nombre completo">
 <input type="number" id="edad" placeholder="Edad">
 
 <select id="sexo"><option value="">Sexo</option><option>Masculino</option><option>Femenino</option><option>Intersexual</option></select>
+<select id="orientacion"><option value="">Orientación</option><option>Heterosexual</option><option>Homosexual</option><option>Bisexual</option><option>Otro</option></select>
 
-<select id="etnia">
-<option value="">Etnia</option>
-<option>Mestizo</option>
-<option>Afrodescendiente</option>
-<option>Indígena</option>
-<option>ROM</option>
-<option>No aplica</option>
-</select>
+<select id="etnia"><option value="">Etnia</option><option>Mestizo</option><option>Afrodescendiente</option><option>Indígena</option><option>ROM</option><option>No aplica</option></select>
+<select id="discapacidad"><option value="">Discapacidad</option><option>No</option><option>Física</option><option>Sensorial</option><option>Cognitiva</option></select>
 
-<select id="discapacidad">
-<option value="">Discapacidad</option>
-<option>No</option>
-<option>Física</option>
-<option>Sensorial</option>
-<option>Cognitiva</option>
-</select>
+<select id="eps"><option value="">EPS</option><option>Nueva EPS</option><option>Sura</option><option>Sanitas</option><option>Coosalud</option><option>Otra</option></select>
 
 <input id="direccion" placeholder="Dirección">
 <input id="barrio" placeholder="Barrio">
-
-<select id="ciudad">
-<option value="">Ciudad</option>
-<option>Cúcuta</option>
-<option>Villa del Rosario</option>
-<option>Los Patios</option>
-<option>Pamplona</option>
-<option>Ocaña</option>
-</select>
-
-<select id="pais">
-<option value="">País</option>
-<option>Colombia</option>
-<option>Venezuela</option>
-<option>Otro</option>
-</select>
-
-<input id="servicio" placeholder="Servicio">
+<select id="ciudad"><option value="">Ciudad</option><option>Cúcuta</option><option>Bucaramanga</option><option>Bogotá</option></select>
+<select id="pais"><option value="">País</option><option>Colombia</option><option>Venezuela</option><option>Otro</option></select>
 </div>
 </div>
 
@@ -101,37 +76,19 @@ button.secondary{background:#6c757d}
 <input type="number" id="tas" placeholder="TA Sistólica">
 <input type="number" id="tad" placeholder="TA Diastólica">
 <input type="number" id="fc" placeholder="FC">
-<input type="number" id="fr" placeholder="FR">
-<input type="number" id="temp" placeholder="Temperatura °C">
-<input type="number" id="sato2" placeholder="Sat O₂ %">
 <input type="number" id="glasgow" placeholder="Glasgow (3–15)">
 </div>
-</div>
-
-<!-- 4 OBJETIVO Y ANÁLISIS -->
-<div class="section">
-<h2>4. Objetivo y análisis</h2>
-<textarea id="objetivo" placeholder="Hallazgos objetivos (mínimo 30 caracteres)"></textarea>
-<textarea id="analisis" placeholder="Análisis clínico (mínimo 50 caracteres)"></textarea>
 </div>
 
 <!-- 5 DIAGNÓSTICO -->
 <div class="section">
 <h2>5. Diagnóstico CIE-10</h2>
-<div class="grid">
-<label><input type="checkbox" class="dxCheck" value="I10 Hipertensión arterial"> I10 Hipertensión</label>
-<label><input type="checkbox" class="dxCheck" value="E11 Diabetes mellitus tipo 2"> E11 Diabetes</label>
-<label><input type="checkbox" class="dxCheck" value="J18 Neumonía"> J18 Neumonía</label>
-<label><input type="checkbox" class="dxCheck" value="N39 Infección urinaria"> N39 ITU</label>
-<label><input type="checkbox" class="dxCheck" value="A09 Diarrea"> A09 Diarrea</label>
+<div class="dxbox">
+<label><input type="checkbox" class="dxCheck" value="I10"> I10 – Hipertensión</label><br>
+<label><input type="checkbox" class="dxCheck" value="E11"> E11 – Diabetes tipo 2</label><br>
+<label><input type="checkbox" class="dxCheck" value="J18"> J18 – Neumonía</label><br>
+<input id="dxLibre" placeholder="Otro CIE-10 (si no está en la lista)">
 </div>
-<input id="dxLibre" placeholder="Otro diagnóstico CIE-10 (si no está en la lista)">
-</div>
-
-<!-- 6 INDICACIONES -->
-<div class="section">
-<h2>6. Indicaciones médicas</h2>
-<textarea id="indicaciones" placeholder="Medicamentos, dosis, frecuencia, cuidados (mínimo 30 caracteres)"></textarea>
 </div>
 
 <div id="errores" class="error"></div>
@@ -140,6 +97,7 @@ button.secondary{background:#6c757d}
 <div class="actions">
 <button type="submit">Validar evolución</button>
 <button type="button" class="secondary" onclick="window.print()">PDF</button>
+<button type="button" class="secondary" onclick="descargarCSV()">CSV</button>
 </div>
 
 </form>
@@ -148,24 +106,7 @@ button.secondary{background:#6c757d}
 <script>
 function imcCalc(){
  if(peso.value&&talla.value)
-   imc.value=(peso.value/Math.pow(talla.value/100,2)).toFixed(1);
+  imc.value=(peso.value/Math.pow(talla.value/100,2)).toFixed(1);
 }
 
-form.addEventListener("submit",e=>{
- e.preventDefault();
- let err=[];
- if(!tipoDoc.value||!numDoc.value||!nombre.value) err.push("Identificación incompleta");
- if(subjetivo.value.length<30) err.push("Subjetivo insuficiente");
- if(!peso.value||!talla.value||!tas.value||!tad.value||!fc.value) err.push("Signos vitales incompletos");
- if(objetivo.value.length<30) err.push("Objetivo insuficiente");
- if(analisis.value.length<50) err.push("Análisis insuficiente");
- if(!document.querySelector(".dxCheck:checked")&&!dxLibre.value) err.push("Diagnóstico obligatorio");
- if(indicaciones.value.length<30) err.push("Indicaciones incompletas");
-
- errores.innerHTML=err.join("<br>");
- ok.innerHTML=err.length===0?"EVOLUCIÓN CONFORME":"";
-});
-</script>
-
-</body>
-</html>
+form.addEventListener
