@@ -169,13 +169,14 @@ form.addEventListener("submit", e=>{
     if(!tipoDoc.value) err.push("Tipo de documento obligatorio");
     if(!numDoc.value) err.push("Número de documento obligatorio");
     if(tipoDoc.value==="CC" && !/^\d{6,}$/.test(numDoc.value)) err.push("Número de cédula inválido");
-
     if(subjetivo.value.length<30) err.push("Subjetivo insuficiente");
     if(analisis.value.length<50) err.push("Análisis insuficiente");
     if(!cie10Principal.value) err.push("Diagnóstico IAM obligatorio");
 
     const docCompleto = tipoDoc.value + "-" + numDoc.value;
-    if(evoluciones.includes(docCompleto)) err.push("Ya existe una evolución registrada para este documento");
+    if(evoluciones.includes(docCompleto)){
+        err.push("Ya existe una evolución registrada para este documento");
+    }
 
     errores.innerHTML = err.join("<br>");
     resultadoConforme = err.length===0;
@@ -190,9 +191,7 @@ form.addEventListener("submit", e=>{
 });
 
 function auditoriaAutomatica(){
-    let obs=[];
-    let aprobado=true;
-
+    let obs=[]; let aprobado=true;
     if(subjetivo.value.length<30){obs.push("Subjetivo incompleto");aprobado=false}
     if(analisis.value.length<50){obs.push("Análisis insuficiente");aprobado=false}
     if(!cie10Principal.value){obs.push("CIE-10 no registrado");aprobado=false}
@@ -244,7 +243,7 @@ function enviarSheets(){
         dieta: dieta.value
     };
 
-    fetch("TU_https://script.google.com/macros/s/AKfycbzoGe12a5pcfno5ba1CrJUmkQItJefzSsJ4vnX269FnPwpXIdVKiYyA4ni2OzfjAqY/exec{
+    fetch("https://script.google.com/macros/s/AKfycbzoGe12a5pcfno5ba1CrJUmkQItJefzSsJ4vnX269FnPwpXIdVKiYyA4ni2OzfjAqY/exec", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
