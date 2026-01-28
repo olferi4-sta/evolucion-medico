@@ -193,7 +193,7 @@ function enviarSheets(){
  const dxSeleccionados=[...document.querySelectorAll(".dxCheck:checked")]
  .map(d=>d.value).join(" | ") || dxLibre.value;
 
- fetch("🔴 PEGA AQUÍ TU URL DE GOOGLE APPS SCRIPT 🔴",{
+ fetch("https://script.google.com/macros/s/AKfycbwVb-7BkbkbrY_IcDnwiCXEO64lEJRys2BsawZsUy2_mGlFtD661sSkRQMeEfFGbkT0/exec",{
  method:"POST",
  headers:{"Content-Type":"application/json"},
  body:JSON.stringify({
@@ -244,3 +244,4 @@ function descargarCSV(){
 
 </body>
 </html>
+
