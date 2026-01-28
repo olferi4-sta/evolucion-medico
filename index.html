@@ -204,27 +204,25 @@ function auditoriaAutomatica(){
 }
 function enviarSheets(){
 
-  const data = {
-    estudiante: estudiante.value,
-    documento: numDoc.value,
-    paciente: nombre.value,
-    edad: edad.value,
-    servicio: servicio.value,
-    subjetivo: subjetivo.value,
-    analisis: analisis.value,
-    cie10: cie10Principal.value,
-    peso: peso.value,
-    talla: talla.value,
-    imc: imc.value,
-    temperatura: temperatura.value,
-    glasgow: glasgow.value,
-    medicamentos: medicamentos.value
-  };
+  const formData = new FormData();
+  formData.append("estudiante", estudiante.value);
+  formData.append("documento", numDoc.value);
+  formData.append("paciente", nombre.value);
+  formData.append("edad", edad.value);
+  formData.append("servicio", servicio.value);
+  formData.append("subjetivo", subjetivo.value);
+  formData.append("analisis", analisis.value);
+  formData.append("cie10", cie10Principal.value);
+  formData.append("peso", peso.value);
+  formData.append("talla", talla.value);
+  formData.append("imc", imc.value);
+  formData.append("temperatura", temperatura.value);
+  formData.append("glasgow", glasgow.value);
+  formData.append("medicamentos", medicamentos.value);
 
   fetch("https://script.google.com/macros/s/AKfycbxsoRYabZQaRGD_5zPPcY0M3OBs-1JA8ctEoJjRp6yoagV4YKpFCWlpoqRuPoDpUVs/exec", {
     method: "POST",
-    mode: "no-cors",
-    body: JSON.stringify(data)
+    body: formData
   });
 
   alert("✔ Evolución enviada. Verifique en Google Sheets.");
@@ -241,5 +239,6 @@ ${estudiante.value},${tipoDoc.value}-${numDoc.value},${nombre.value},${cie10Prin
 </script>
 </body>
 </html>
+
 
 
