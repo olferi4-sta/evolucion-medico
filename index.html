@@ -21,30 +21,23 @@ button.secondary{background:#6c757d}
 .ok{color:#1b5e20;font-weight:bold;margin-top:10px}
 @media print{button,.actions,#btnMovil{display:none}}
 @media (max-width:768px){
-    body{padding:10px}
-    .container{padding:15px}
-    .section h2{text-align:center;font-size:14px}
-    input,select,textarea{font-size:16px}
-    .actions{flex-direction:column}
-    button{width:100%}
+ body{padding:10px}.container{padding:15px}.section h2{text-align:center}
+ input,select,textarea{font-size:16px}.actions{flex-direction:column}button{width:100%}
 }
 </style>
 </head>
 <body>
+
 <div class="container">
 <div class="header">
 <h1>Evolución Clínica – Médico Interno</h1>
 <small>Hospital Universitario Erasmo Meoz · Simulación académica</small>
 </div>
 
-<!-- ACCESO -->
 <div class="section">
 <h2>Acceso del estudiante</h2>
 <div class="grid">
-<select id="tipoDoc">
-    <option value="">Tipo documento</option>
-    <option>RC</option><option>TI</option><option>CC</option><option>CE</option><option>PS</option>
-</select>
+<select id="tipoDoc"><option value="">Tipo documento</option><option>RC</option><option>TI</option><option>CC</option><option>CE</option><option>PS</option></select>
 <input id="numDoc" placeholder="Número de documento">
 <input id="estudiante" placeholder="Nombre completo del médico interno">
 </div>
@@ -52,88 +45,56 @@ button.secondary{background:#6c757d}
 
 <form id="form">
 
-<!-- IDENTIFICACIÓN -->
 <div class="section">
 <h2>1. Identificación del paciente</h2>
 <div class="grid">
-<select id="tipoDocPaciente"><option value="">Tipo documento</option><option>RC</option><option>TI</option><option>CC</option><option>CE</option><option>PS</option></select>
-<input id="numDocPaciente" placeholder="Documento">
-<input id="nombre" placeholder="Nombre completo">
+<input id="nombre" placeholder="Nombre paciente">
+<input id="numDocPaciente" placeholder="Documento paciente">
 <input type="number" id="edad" placeholder="Edad">
-<select id="sexo"><option value="">Sexo</option><option>Masculino</option><option>Femenino</option><option>Intersexual</option></select>
-<select id="orientacion"><option value="">Orientación sexual</option><option>Heterosexual</option><option>Homosexual</option><option>Bisexual</option><option>Otro</option></select>
-<select id="etnia"><option value="">Etnia</option><option>Mestizo</option><option>Afrodescendiente</option><option>Indígena</option><option>ROM</option><option>No aplica</option></select>
-<select id="discapacidad"><option value="">Discapacidad</option><option>No</option><option>Física</option><option>Sensorial</option><option>Cognitiva</option></select>
-<input id="direccion" placeholder="Dirección">
-<input id="barrio" placeholder="Barrio">
-<select id="ciudad"><option value="">Ciudad</option><option>Cúcuta</option><option>Los Patios</option><option>Villa del Rosario</option><option>Otra</option></select>
-<select id="pais"><option value="">País</option><option>Colombia</option><option>Venezuela</option><option>Otro</option></select>
-<select id="eps"><option value="">EPS</option><option>Nueva EPS</option><option>SURA</option><option>Sanitas</option><option>Coosalud</option><option>Salud Total</option><option>Otra</option></select>
+<select id="sexo"><option value="">Sexo</option><option>Masculino</option><option>Femenino</option></select>
 <input id="servicio" placeholder="Servicio clínico">
 </div>
 </div>
 
-<!-- SUBJETIVO -->
 <div class="section">
 <h2>2. Subjetivo</h2>
-<textarea id="subjetivo" placeholder="Motivo de consulta (mínimo 30 caracteres)"></textarea>
+<textarea id="subjetivo" placeholder="Mínimo 30 caracteres"></textarea>
 </div>
 
-<!-- SIGNOS -->
 <div class="section">
 <h2>3. Signos vitales</h2>
 <div class="grid">
-<input type="number" id="peso" placeholder="Peso (kg)" oninput="imcCalc()">
-<input type="number" id="talla" placeholder="Talla (cm)" oninput="imcCalc()">
+<input id="peso" type="number" placeholder="Peso" oninput="imcCalc()">
+<input id="talla" type="number" placeholder="Talla cm" oninput="imcCalc()">
 <input id="imc" placeholder="IMC" readonly>
-<input type="number" id="tas" placeholder="TA Sistólica">
-<input type="number" id="tad" placeholder="TA Diastólica">
-<input type="number" id="fc" placeholder="Frecuencia cardiaca">
-<input type="number" id="temperatura" placeholder="Temperatura °C" step="0.1">
-<input type="number" id="glasgow" placeholder="Glasgow (3–15)">
+<input id="temperatura" type="number" step="0.1" placeholder="Temp °C">
+<input id="glasgow" type="number" placeholder="Glasgow">
 </div>
 </div>
 
-<!-- OBJETIVO -->
 <div class="section">
-<h2>4. Evolución objetiva y análisis</h2>
-<textarea id="objetivo" placeholder="Examen físico (mínimo 30 caracteres)"></textarea>
-<textarea id="analisis" placeholder="Análisis clínico (mínimo 50 caracteres)"></textarea>
+<h2>4. Análisis</h2>
+<textarea id="analisis" placeholder="Mínimo 50 caracteres"></textarea>
 </div>
 
-<!-- DIAGNÓSTICO -->
 <div class="section">
-<h2>5. Diagnóstico CIE-10 – Infarto Agudo del Miocardio</h2>
+<h2>5. Diagnóstico</h2>
 <select id="cie10Principal">
-<option value="">Seleccione diagnóstico</option>
-<option value="I21">I21 – Infarto agudo del miocardio</option>
-<option value="I21.0">IAM pared anterior</option>
-<option value="I21.1">IAM pared inferior</option>
-<option value="I21.2">IAM otras localizaciones</option>
-<option value="I22">Infarto recurrente</option>
-</select>
-<input id="cie10Relacionado" placeholder="Diagnóstico relacionado (opcional)">
-</div>
-
-<!-- 6. INDICACIONES MÉDICAS -->
-<div class="section">
-<h2>6. Indicaciones médicas</h2>
-<textarea id="medicamentos" placeholder="Medicamentos (mínimo 30 caracteres)"></textarea>
-<textarea id="paraclinicos" placeholder="Paraclínicos"></textarea>
-<textarea id="cuidados" placeholder="Cuidados generales"></textarea>
-<select id="dieta">
-<option value="">Dieta</option>
-<option>Libre</option>
-<option>Blanda</option>
-<option>Hiposódica</option>
-<option>Diabética</option>
+<option value="">Seleccione</option>
+<option value="I21">I21 Infarto agudo</option>
+<option value="I21.0">IAM anterior</option>
+<option value="I21.1">IAM inferior</option>
 </select>
 </div>
 
-<!-- AUDITORÍA -->
 <div class="section">
-<h2>7. Auditoría clínica automática</h2>
-<p><strong>Estado:</strong> <span id="estadoAuditoria">PENDIENTE</span></p>
+<h2>6. Indicaciones</h2>
+<textarea id="medicamentos"></textarea>
+</div>
+
+<div class="section">
+<h2>Auditoría</h2>
+<p><b>Estado:</b> <span id="estadoAuditoria">PENDIENTE</span></p>
 <textarea id="obsAuditoria" readonly></textarea>
 </div>
 
@@ -141,132 +102,83 @@ button.secondary{background:#6c757d}
 <div id="ok" class="ok"></div>
 
 <div class="actions">
-<button type="submit">Validar evolución</button>
-<button type="button" class="secondary" onclick="window.print()">PDF</button>
-<button type="button" class="secondary" onclick="descargarCSV()">CSV</button>
-<button type="button" class="secondary" onclick="enviarSheets()">Enviar evolución</button>
+<button type="submit">Validar</button>
+<button type="button" onclick="enviarSheets()">Enviar evolución</button>
 </div>
+
 </form>
 </div>
 
-<button id="btnMovil" style="position:fixed;bottom:15px;right:15px;background:#1e88e5;color:#fff; padding:14px;border-radius:50%;border:none;font-size:18px;z-index:999" onclick="document.getElementById('form').requestSubmit()">✔</button>
-
 <script>
 let resultadoConforme=false;
-let evoluciones = JSON.parse(localStorage.getItem("evoluciones") || "[]");
 
 function imcCalc(){
-    if(peso.value && talla.value){
-        imc.value=(peso.value/Math.pow(talla.value/100,2)).toFixed(1);
-    }
+ if(peso.value && talla.value){
+   imc.value=(peso.value/Math.pow(talla.value/100,2)).toFixed(1);
+ }
 }
 
-form.addEventListener("submit", e=>{
-    e.preventDefault();
-    let err=[];
+form.addEventListener("submit",e=>{
+ e.preventDefault();
+ let err=[];
+ if(!estudiante.value) err.push("Nombre estudiante obligatorio");
+ if(subjetivo.value.length<30) err.push("Subjetivo insuficiente");
+ if(analisis.value.length<50) err.push("Análisis insuficiente");
+ if(!cie10Principal.value) err.push("Diagnóstico obligatorio");
 
-    if(!estudiante.value) err.push("Nombre del estudiante obligatorio");
-    if(!tipoDoc.value) err.push("Tipo de documento obligatorio");
-    if(!numDoc.value) err.push("Número de documento obligatorio");
-    if(tipoDoc.value==="CC" && !/^\d{6,}$/.test(numDoc.value)) err.push("Número de cédula inválido");
-    if(subjetivo.value.length<30) err.push("Subjetivo insuficiente");
-    if(analisis.value.length<50) err.push("Análisis insuficiente");
-    if(!cie10Principal.value) err.push("Diagnóstico IAM obligatorio");
-
-    const docCompleto = tipoDoc.value + "-" + numDoc.value;
-    if(evoluciones.includes(docCompleto)){
-        err.push("Ya existe una evolución registrada para este documento");
-    }
-
-    errores.innerHTML = err.join("<br>");
-    resultadoConforme = err.length===0;
-    ok.innerHTML = resultadoConforme?"EVOLUCIÓN CONFORME":"";
-
-    if(resultadoConforme){
-        evoluciones.push(docCompleto);
-        localStorage.setItem("evoluciones", JSON.stringify(evoluciones));
-    }
-
-    auditoriaAutomatica();
+ errores.innerHTML=err.join("<br>");
+ resultadoConforme=err.length===0;
+ ok.innerHTML=resultadoConforme?"EVOLUCIÓN CONFORME":"";
+ auditoria();
 });
 
-function auditoriaAutomatica(){
-    let obs=[]; let aprobado=true;
-    if(subjetivo.value.length<30){obs.push("Subjetivo incompleto");aprobado=false}
-    if(analisis.value.length<50){obs.push("Análisis insuficiente");aprobado=false}
-    if(!cie10Principal.value){obs.push("CIE-10 no registrado");aprobado=false}
-    if(glasgow.value && glasgow.value<=8){obs.push("Paciente crítico");aprobado=false}
-    if(!estudiante.value || !tipoDoc.value || !numDoc.value){obs.push("Documento del estudiante incompleto");aprobado=false}
-
-    estadoAuditoria.textContent=aprobado?"APROBADO":"NO APROBADO";
-    estadoAuditoria.style.color=aprobado?"green":"red";
-    obsAuditoria.value=obs.length?obs.join(" | "):"Cumple criterios clínicos";
+function auditoria(){
+ let ok=true,obs=[];
+ if(subjetivo.value.length<30){obs.push("Subjetivo incompleto");ok=false}
+ if(analisis.value.length<50){obs.push("Análisis insuficiente");ok=false}
+ if(!cie10Principal.value){obs.push("CIE10 faltante");ok=false}
+ if(glasgow.value && glasgow.value<=8){obs.push("Paciente crítico");ok=false}
+ estadoAuditoria.textContent=ok?"APROBADO":"NO APROBADO";
+ estadoAuditoria.style.color=ok?"green":"red";
+ obsAuditoria.value=obs.join(" | ");
 }
 
 function enviarSheets(){
-    if(!resultadoConforme){alert("Primero valide la evolución");return;}
+ if(!resultadoConforme){alert("Primero valide la evolución");return;}
 
-    const data = {
-        estudiante: estudiante.value,
-        tipoDoc: tipoDoc.value,
-        numDoc: numDoc.value,
-        nombre: nombre.value,
-        tipoDocPaciente: tipoDocPaciente.value,
-        numDocPaciente: numDocPaciente.value,
-        edad: edad.value,
-        sexo: sexo.value,
-        orientacion: orientacion.value,
-        etnia: etnia.value,
-        discapacidad: discapacidad.value,
-        direccion: direccion.value,
-        barrio: barrio.value,
-        ciudad: ciudad.value,
-        pais: pais.value,
-        eps: eps.value,
-        servicio: servicio.value,
-        subjetivo: subjetivo.value,
-        objetivo: objetivo.value,
-        analisis: analisis.value,
-        cie10Principal: cie10Principal.value,
-        cie10Relacionado: cie10Relacionado.value,
-        peso: peso.value,
-        talla: talla.value,
-        imc: imc.value,
-        tas: tas.value,
-        tad: tad.value,
-        fc: fc.value,
-        temperatura: temperatura.value,
-        glasgow: glasgow.value,
-        medicamentos: medicamentos.value,
-        paraclinicos: paraclinicos.value,
-        cuidados: cuidados.value,
-        dieta: dieta.value
-    };
+ const data={
+  estudiante:estudiante.value,
+  tipoDoc:tipoDoc.value,
+  numDoc:numDoc.value,
+  nombre:nombre.value,
+  numDocPaciente:numDocPaciente.value,
+  edad:edad.value,
+  sexo:sexo.value,
+  servicio:servicio.value,
+  subjetivo:subjetivo.value,
+  analisis:analisis.value,
+  cie10Principal:cie10Principal.value,
+  peso:peso.value,
+  talla:talla.value,
+  imc:imc.value,
+  temperatura:temperatura.value,
+  glasgow:glasgow.value,
+  medicamentos:medicamentos.value
+ };
 
-    fetch("https://script.google.com/macros/s/AKfycbzoGe12a5pcfno5ba1CrJUmkQItJefzSsJ4vnX269FnPwpXIdVKiYyA4ni2OzfjAqY/exec", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(res => {
-        if(res.status==="ok"){
-            alert("✔ Evolución enviada a Google Sheets correctamente");
-        } else {
-            alert("Error al enviar: "+res.message);
-        }
-    })
-    .catch(err => alert("Error de conexión: "+err));
-}
-
-function descargarCSV(){
-    const csv=`Estudiante,Documento,Paciente,DX,IMC,Temperatura
-${estudiante.value},${tipoDoc.value}-${numDoc.value},${nombre.value},${cie10Principal.value},${imc.value},${temperatura.value}`;
-    const a=document.createElement("a");
-    a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
-    a.download="evolucion_clinica.csv";
-    a.click();
+ fetch("https://script.google.com/macros/s/AKfycbzoGe12a5pcfno5ba1CrJUmkQItJefzSsJ4vnX269FnPwpXIdVKiYyA4ni2OzfjAqY/exec",{
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify(data)
+ })
+ .then(r=>r.json())
+ .then(r=>{
+   if(r.status==="ok"){alert("✔ Guardado en Google Sheets");form.reset();}
+   else alert("Error: "+r.message);
+ })
+ .catch(err=>alert("Error conexión: "+err));
 }
 </script>
+
 </body>
 </html>
