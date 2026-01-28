@@ -20,7 +20,17 @@ button{background:var(--azul);color:#fff;border:none;padding:10px 18px;border-ra
 button.secondary{background:#6c757d}
 .error{color:#b00020;margin-top:10px}
 .ok{color:#1b5e20;font-weight:bold;margin-top:10px}
+
 @media print{button,.actions{display:none}}
+
+@media (max-width:768px){
+ body{padding:10px}
+ .container{padding:15px}
+ .section h2{text-align:center;font-size:14px}
+ input,select,textarea{font-size:16px}
+ .actions{flex-direction:column}
+ button{width:100%}
+}
 </style>
 </head>
 
@@ -32,7 +42,7 @@ button.secondary{background:#6c757d}
 <small>Hospital Universitario Erasmo Meoz · Simulación académica</small>
 </div>
 
-<!-- ACCESO ESTUDIANTE -->
+<!-- ACCESO -->
 <div class="section">
 <h2>Acceso del estudiante</h2>
 <input id="estudiante" placeholder="Nombre completo del médico interno">
@@ -40,79 +50,38 @@ button.secondary{background:#6c757d}
 
 <form id="form">
 
-<!-- 1. IDENTIFICACIÓN -->
+<!-- IDENTIFICACIÓN -->
 <div class="section">
 <h2>1. Identificación del paciente</h2>
 <div class="grid">
-<select id="tipoDoc">
-<option value="">Tipo documento</option>
-<option>RC</option><option>TI</option><option>CC</option>
-<option>CE</option><option>PS</option><option>SV</option>
-</select>
-
+<select id="tipoDoc"><option value="">Tipo documento</option><option>RC</option><option>TI</option><option>CC</option><option>CE</option><option>PS</option></select>
 <input id="numDoc" placeholder="Documento">
 <input id="nombre" placeholder="Nombre completo">
 <input type="number" id="edad" placeholder="Edad">
 
-<select id="sexo">
-<option value="">Sexo</option>
-<option>Masculino</option><option>Femenino</option><option>Intersexual</option>
-</select>
-
-<select id="orientacion">
-<option value="">Orientación sexual</option>
-<option>Heterosexual</option><option>Homosexual</option>
-<option>Bisexual</option><option>Otro</option>
-</select>
-
-<select id="etnia">
-<option value="">Etnia</option>
-<option>Mestizo</option><option>Afrodescendiente</option>
-<option>Indígena</option><option>ROM</option><option>No aplica</option>
-</select>
-
-<select id="discapacidad">
-<option value="">Discapacidad</option>
-<option>No</option><option>Física</option>
-<option>Sensorial</option><option>Cognitiva</option>
-</select>
+<select id="sexo"><option value="">Sexo</option><option>Masculino</option><option>Femenino</option><option>Intersexual</option></select>
+<select id="orientacion"><option value="">Orientación sexual</option><option>Heterosexual</option><option>Homosexual</option><option>Bisexual</option><option>Otro</option></select>
+<select id="etnia"><option value="">Etnia</option><option>Mestizo</option><option>Afrodescendiente</option><option>Indígena</option><option>ROM</option><option>No aplica</option></select>
+<select id="discapacidad"><option value="">Discapacidad</option><option>No</option><option>Física</option><option>Sensorial</option><option>Cognitiva</option></select>
 
 <input id="direccion" placeholder="Dirección">
 <input id="barrio" placeholder="Barrio">
 
-<select id="ciudad">
-<option value="">Ciudad</option>
-<option>Cúcuta</option>
-<option>Los Patios</option>
-<option>Villa del Rosario</option>
-<option>Otra</option>
-</select>
+<select id="ciudad"><option value="">Ciudad</option><option>Cúcuta</option><option>Los Patios</option><option>Villa del Rosario</option><option>Otra</option></select>
+<select id="pais"><option value="">País</option><option>Colombia</option><option>Venezuela</option><option>Otro</option></select>
 
-<select id="pais">
-<option value="">País</option>
-<option>Colombia</option>
-<option>Venezuela</option>
-<option>Otro</option>
-</select>
-
-<select id="eps">
-<option value="">EPS</option>
-<option>Nueva EPS</option><option>SURA</option>
-<option>Sanitas</option><option>Coosalud</option>
-<option>Salud Total</option><option>Otra</option>
-</select>
-
+<select id="eps"><option value="">EPS</option><option>Nueva EPS</option><option>SURA</option><option>Sanitas</option><option>Coosalud</option><option>Salud Total</option><option>Otra</option></select>
 <input id="servicio" placeholder="Servicio clínico">
 </div>
 </div>
 
-<!-- 2. SUBJETIVO -->
+<!-- SUBJETIVO -->
 <div class="section">
 <h2>2. Subjetivo</h2>
-<textarea id="subjetivo" placeholder="Motivo de consulta y síntomas (mínimo 30 caracteres)"></textarea>
+<textarea id="subjetivo" placeholder="Motivo de consulta (mínimo 30 caracteres)"></textarea>
 </div>
 
-<!-- 3. SIGNOS -->
+<!-- SIGNOS -->
 <div class="section">
 <h2>3. Signos vitales</h2>
 <div class="grid">
@@ -122,38 +91,46 @@ button.secondary{background:#6c757d}
 <input type="number" id="tas" placeholder="TA Sistólica">
 <input type="number" id="tad" placeholder="TA Diastólica">
 <input type="number" id="fc" placeholder="Frecuencia cardiaca">
+<input type="number" id="temperatura" placeholder="Temperatura °C" step="0.1">
 <input type="number" id="glasgow" placeholder="Glasgow (3–15)">
 </div>
 </div>
 
-<!-- 4. OBJETIVO Y ANÁLISIS -->
+<!-- OBJETIVO -->
 <div class="section">
 <h2>4. Evolución objetiva y análisis</h2>
 <textarea id="objetivo" placeholder="Examen físico (mínimo 30 caracteres)"></textarea>
 <textarea id="analisis" placeholder="Análisis clínico (mínimo 50 caracteres)"></textarea>
 </div>
 
-<!-- 5. DIAGNÓSTICO -->
+<!-- DIAGNÓSTICO -->
 <div class="section">
-<h2>5. Diagnóstico (CIE-10)</h2>
-<label><input type="checkbox" class="dxCheck" value="J18"> J18 – Neumonía</label><br>
-<label><input type="checkbox" class="dxCheck" value="I10"> I10 – Hipertensión</label><br>
-<label><input type="checkbox" class="dxCheck" value="E11"> E11 – Diabetes tipo 2</label><br>
-<input id="dxLibre" placeholder="Otro CIE-10 (si no está en la lista)">
+<h2>5. Diagnóstico CIE-10 – Infarto Agudo del Miocardio</h2>
+<select id="cie10Principal">
+<option value="">Seleccione diagnóstico</option>
+<option value="I21">I21 – Infarto agudo del miocardio</option>
+<option value="I21.0">I21.0 – IAM pared anterior</option>
+<option value="I21.1">I21.1 – IAM pared inferior</option>
+<option value="I21.2">I21.2 – IAM otras localizaciones</option>
+<option value="I22">I22 – Infarto recurrente</option>
+</select>
+<input id="cie10Relacionado" placeholder="Diagnóstico relacionado (opcional)">
 </div>
 
-<!-- 6. INDICACIONES -->
+<!-- INDICACIONES -->
 <div class="section">
 <h2>6. Indicaciones médicas</h2>
 <textarea id="medicamentos" placeholder="Medicamentos (mínimo 30 caracteres)"></textarea>
-<textarea id="paraclinicos" placeholder="Paraclínicos / ayudas diagnósticas"></textarea>
+<textarea id="paraclinicos" placeholder="Paraclínicos"></textarea>
 <textarea id="cuidados" placeholder="Cuidados generales"></textarea>
+<select id="dieta"><option value="">Dieta</option><option>Libre</option><option>Blanda</option><option>Hiposódica</option><option>Diabética</option></select>
+</div>
 
-<select id="dieta">
-<option value="">Dieta</option>
-<option>Libre</option><option>Blanda</option>
-<option>Hiposódica</option><option>Diabética</option>
-</select>
+<!-- AUDITORÍA -->
+<div class="section">
+<h2>7. Auditoría clínica automática</h2>
+<p><strong>Estado:</strong> <span id="estadoAuditoria">PENDIENTE</span></p>
+<textarea id="obsAuditoria" readonly></textarea>
 </div>
 
 <div id="errores" class="error"></div>
@@ -169,6 +146,11 @@ button.secondary{background:#6c757d}
 </form>
 </div>
 
+<button id="btnMovil"
+style="position:fixed;bottom:15px;right:15px;background:#1e88e5;color:#fff;
+padding:14px;border-radius:50%;border:none;font-size:18px;z-index:999"
+onclick="form.requestSubmit()">✔</button>
+
 <script>
 let resultadoConforme=false;
 
@@ -180,61 +162,41 @@ function imcCalc(){
 form.addEventListener("submit",e=>{
  e.preventDefault();
  let err=[];
- if(!estudiante.value) err.push("Identificación del estudiante obligatoria");
- if(!tipoDoc.value||!numDoc.value||!nombre.value) err.push("Identificación del paciente incompleta");
- if(!barrio.value||!ciudad.value||!pais.value) err.push("Ubicación incompleta");
- if(!orientacion.value) err.push("Orientación sexual obligatoria");
+ if(!estudiante.value) err.push("Nombre del estudiante obligatorio");
+ if(!cie10Principal.value) err.push("Diagnóstico IAM obligatorio");
  if(subjetivo.value.length<30) err.push("Subjetivo insuficiente");
- if(!peso.value||!talla.value||!tas.value||!tad.value||!fc.value) err.push("Signos vitales incompletos");
- if(objetivo.value.length<30) err.push("Objetivo insuficiente");
  if(analisis.value.length<50) err.push("Análisis insuficiente");
- if(!document.querySelector(".dxCheck:checked")&&!dxLibre.value) err.push("Diagnóstico obligatorio");
- if(medicamentos.value.length<30) err.push("Indicaciones médicas incompletas");
- if(!dieta.value) err.push("Debe seleccionar dieta");
 
  errores.innerHTML=err.join("<br>");
  ok.innerHTML=err.length===0?"EVOLUCIÓN CONFORME":"";
  resultadoConforme=err.length===0;
+ auditoriaAutomatica();
 });
 
+function auditoriaAutomatica(){
+ let obs=[];
+ let aprobado=true;
+
+ if(subjetivo.value.length<30){obs.push("Subjetivo incompleto");aprobado=false}
+ if(analisis.value.length<50){obs.push("Análisis insuficiente");aprobado=false}
+ if(!cie10Principal.value){obs.push("CIE-10 no registrado");aprobado=false}
+ if(glasgow.value && glasgow.value<=8){obs.push("Paciente crítico");aprobado=false}
+
+ estadoAuditoria.textContent=aprobado?"APROBADO":"NO APROBADO";
+ estadoAuditoria.style.color=aprobado?"green":"red";
+ obsAuditoria.value=obs.length?obs.join(" | "):"Cumple criterios clínicos";
+}
+
 function enviarSheets(){
- if(!resultadoConforme){
-   alert("⚠ Primero valide la evolución");
-   return;
- }
-
- const dx=[...document.querySelectorAll(".dxCheck:checked")]
- .map(d=>d.value).join(" | ") || dxLibre.value;
-
- fetch("https://script.google.com/macros/s/AKfycbwVb-7BkbkbrY_IcDnwiCXEO64lEJRys2BsawZsUy2_mGlFtD661sSkRQMeEfFGbkT0/exec",{
- method:"POST",
- headers:{"Content-Type":"application/json"},
- body:JSON.stringify({
-  estudiante:estudiante.value,
-  documento:numDoc.value,
-  paciente:nombre.value,
-  sexo:sexo.value,
-  orientacion:orientacion.value,
-  etnia:etnia.value,
-  barrio:barrio.value,
-  ciudad:ciudad.value,
-  pais:pais.value,
-  eps:eps.value,
-  dieta:dieta.value,
-  imc:imc.value,
-  dx:dx,
-  conforme:"SI"
- })
- }).then(()=>alert("✔ Evolución enviada y almacenada en Google Sheets"));
+ if(!resultadoConforme){alert("Primero valide la evolución");return;}
+ alert("✔ Enviado correctamente (simulado)");
 }
 
 function descargarCSV(){
- const csv=[["Estudiante","Documento","Paciente","DX","IMC","Conforme"],
- [estudiante.value,numDoc.value,nombre.value,dxLibre.value,imc.value,resultadoConforme?"SI":"NO"]]
- .map(r=>r.join(",")).join("\n");
+ const csv=`Estudiante,Paciente,DX,IMC,Temperatura\n${estudiante.value},${nombre.value},${cie10Principal.value},${imc.value},${temperatura.value}`;
  const a=document.createElement("a");
  a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
- a.download="evolucion.csv";a.click();
+ a.download="evolucion_clinica.csv";a.click();
 }
 </script>
 
