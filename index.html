@@ -211,7 +211,57 @@ function auditoriaAutomatica(){
 
 function enviarSheets(){
     if(!resultadoConforme){alert("Primero valide la evolución");return;}
-    alert("✔ Enviado correctamente (simulado)");
+
+    const data = {
+        estudiante: estudiante.value,
+        tipoDoc: tipoDoc.value,
+        numDoc: numDoc.value,
+        nombre: nombre.value,
+        tipoDocPaciente: tipoDocPaciente.value,
+        numDocPaciente: numDocPaciente.value,
+        edad: edad.value,
+        sexo: sexo.value,
+        orientacion: orientacion.value,
+        etnia: etnia.value,
+        discapacidad: discapacidad.value,
+        direccion: direccion.value,
+        barrio: barrio.value,
+        ciudad: ciudad.value,
+        pais: pais.value,
+        eps: eps.value,
+        servicio: servicio.value,
+        subjetivo: subjetivo.value,
+        objetivo: objetivo.value,
+        analisis: analisis.value,
+        cie10Principal: cie10Principal.value,
+        cie10Relacionado: cie10Relacionado.value,
+        peso: peso.value,
+        talla: talla.value,
+        imc: imc.value,
+        tas: tas.value,
+        tad: tad.value,
+        fc: fc.value,
+        temperatura: temperatura.value,
+        glasgow: glasgow.value,
+        medicamentos: medicamentos.value,
+        paraclinicos: paraclinicos.value,
+        cuidados: cuidados.value,
+        dieta: dieta.value
+    };
+
+    fetch("TU_URL_DE_WEB_APP_AQUI", {
+        method: "POST",
+        body: JSON.stringify(data)
+    })
+    .then(res => res.json())
+    .then(res => {
+        if(res.status==="ok"){
+            alert("✔ Evolución enviada a Google Sheets correctamente");
+        } else {
+            alert("Error al enviar: "+res.message);
+        }
+    })
+    .catch(err => alert("Error de conexión: "+err));
 }
 
 function descargarCSV(){
