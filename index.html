@@ -1,96 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Evolución Clínica – Médico Interno HUEM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root{--azul:#1e88e5;--gris:#f4f6f8}
+body{font-family:Segoe UI,Arial;background:var(--gris);padding:20px}
+.container{max-width:1200px;margin:auto;background:#fff;padding:25px;border-radius:8px}
+.header{border-bottom:4px solid var(--azul);margin-bottom:20px}
+.section{margin-top:25px}
+.section h2{background:var(--azul);color:#fff;padding:8px;border-radius:6px;font-size:15px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+input,select,textarea{width:100%;padding:8px;border:1px solid #ccc;border-radius:5px}
+textarea{resize:vertical}
+.actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+button{background:var(--azul);color:#fff;border:none;padding:10px 18px;border-radius:6px;cursor:pointer}
+button.secondary{background:#6c757d}
+.error{color:#b00020;margin-top:10px}
+.ok{color:#1b5e20;font-weight:bold;margin-top:10px}
+@media print{button,.actions{display:none}}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="header">
+<h1>Evolución Clínica – Médico Interno</h1>
+<small>Hospital Universitario Erasmo Meoz · Simulación académica</small>
+</div>
+
+<!-- ESTUDIANTE -->
+<div class="section">
+<h2>Acceso estudiante</h2>
+<input id="estudiante" placeholder="Nombre completo del estudiante">
+</div>
+
+<form id="form">
+
+<!-- 1 IDENTIFICACIÓN -->
+<div class="section">
+<h2>1. Identificación del paciente</h2>
+<div class="grid">
+<input id="numDoc" placeholder="Documento">
+<input id="nombre" placeholder="Nombre completo">
+<input type="number" id="edad" placeholder="Edad">
+<select id="sexo"><option value="">Sexo</option><option>Masculino</option><option>Femenino</option><option>Intersexual</option></select>
+<select id="etnia"><option value="">Etnia</option><option>Mestizo</option><option>Afrodescendiente</option><option>Indígena</option><option>ROM</option><option>No aplica</option></select>
+<select id="eps"><option value="">EPS</option><option>Nueva EPS</option><option>Sanitas</option><option>Sura</option><option>Coosalud</option><option>Otra</option></select>
+</div>
+</div>
+
+<!-- 2 SUBJETIVO -->
+<div class="section">
+<h2>2. Subjetivo</h2>
+<textarea id="subjetivo" placeholder="Motivo de consulta (mínimo 30 caracteres)"></textarea>
+</div>
+
+<!-- 3 SIGNOS -->
+<div class="section">
+<h2>3. Signos vitales</h2>
+<div class="grid">
+<input type="number" id="peso" placeholder="Peso (kg)" oninput="imcCalc()">
+<input type="number" id="talla" placeholder="Talla (cm)" oninput="imcCalc()">
+<input id="imc" placeholder="IMC" readonly>
+<input type="number" id="tas" placeholder="TA Sistólica">
+<input type="number" id="tad" placeholder="TA Diastólica">
+<input type="number" id="fc" placeholder="FC">
+</div>
+</div>
+
+<!-- 4 OBJETIVO Y ANALISIS -->
+<div class="section">
+<h2>4. Evolución objetiva y análisis</h2>
+<textarea id="objetivo" placeholder="Examen físico (mínimo 30 caracteres)"></textarea>
+<textarea id="analisis" placeholder="Análisis clínico (mínimo 50 caracteres)"></textarea>
+</div>
+
+<!-- 5 DX -->
+<div class="section">
+<h2>5. Diagnóstico CIE-10</h2>
+<label><input type="checkbox" class="dxCheck" value="J18"> J18 – Neumonía</label><br>
+<label><input type="checkbox" class="dxCheck" value="I10"> I10 – Hipertensión</label><br>
+<label><input type="checkbox" class="dxCheck" value="E11"> E11 – Diabetes</label><br>
+<input id="dxLibre" placeholder="Otro CIE-10">
+</div>
+
+<!-- 6 INDICACIONES -->
+<div class="section">
+<h2>6. Indicaciones médicas</h2>
+<textarea id="medicamentos" placeholder="Medicamentos (mínimo 30 caracteres)"></textarea>
+<textarea id="cuidados" placeholder="Cuidados generales"></textarea>
+</div>
+
+<!-- 7 FIRMA -->
+<div class="section">
+<h2>7. Firma del médico interno</h2>
+<canvas id="firma" width="400" height="150"
+style="border:2px dashed #1e88e5;background:#fff"></canvas><br><br>
+<button type="button" class="secondary" onclick="limpiarFirma()">Limpiar firma</button>
+</div>
+
+<div id="errores" class="error"></div>
+<div id="ok" class="ok"></div>
+
+<div class="actions">
+<button type="submit">Validar y enviar evolución</button>
+</div>
+
+</form>
+</div>
+
 <script>
-let resultadoConforme = false;
+const canvas=document.getElementById("firma");
+const ctx=canvas.getContext("2d");
+let dibujando=false;
+
+canvas.onmousedown=()=>dibujando=true;
+canvas.onmouseup=()=>{dibujando=false;ctx.beginPath();}
+canvas.onmousemove=e=>{
+ if(!dibujando) return;
+ ctx.lineWidth=2;ctx.lineCap="round";
+ ctx.lineTo(e.offsetX,e.offsetY);
+ ctx.stroke();
+ ctx.beginPath();ctx.moveTo(e.offsetX,e.offsetY);
+};
+
+function limpiarFirma(){ctx.clearRect(0,0,canvas.width,canvas.height);ctx.beginPath();}
 
 function imcCalc(){
- if(peso.value && talla.value){
-   imc.value=(peso.value/Math.pow(talla.value/100,2)).toFixed(1);
- }
-}
-
-function validarFormulario(){
- let err=[];
- if(!estudiante.value) err.push("Debe identificarse el estudiante");
- if(!tipoDoc.value||!numDoc.value||!nombre.value) err.push("Identificación incompleta");
- if(subjetivo.value.length<30) err.push("Subjetivo insuficiente");
- if(!peso.value||!talla.value||!tas.value||!tad.value||!fc.value) err.push("Signos vitales incompletos");
- if(objetivo.value.length<30) err.push("Objetivo insuficiente");
- if(analisis.value.length<50) err.push("Análisis insuficiente");
- if(!document.querySelector(".dxCheck:checked")&&!dxLibre.value) err.push("Diagnóstico obligatorio");
- if(medicamentos.value.length<30) err.push("Indicaciones médicas incompletas");
- if(!medico.value||!firma.value) err.push("Debe diligenciar firma del médico interno");
-
- errores.innerHTML=err.join("<br>");
- resultadoConforme = err.length===0;
- ok.innerHTML=resultadoConforme?"EVOLUCIÓN CONFORME":"";
- return resultadoConforme;
+ if(peso.value&&talla.value)
+ imc.value=(peso.value/Math.pow(talla.value/100,2)).toFixed(1);
 }
 
 form.addEventListener("submit",e=>{
  e.preventDefault();
- validarFormulario();
+ let err=[];
+
+ if(!estudiante.value) err.push("❌ Falta nombre del estudiante");
+ if(!numDoc.value||!nombre.value) err.push("❌ Identificación incompleta");
+ if(subjetivo.value.length<30) err.push("❌ Subjetivo insuficiente");
+ if(!peso.value||!talla.value||!tas.value||!tad.value||!fc.value) err.push("❌ Signos vitales incompletos");
+ if(objetivo.value.length<30) err.push("❌ Objetivo insuficiente");
+ if(analisis.value.length<50) err.push("❌ Análisis insuficiente");
+ if(!document.querySelector(".dxCheck:checked")&&!dxLibre.value) err.push("❌ Diagnóstico obligatorio");
+ if(medicamentos.value.length<30) err.push("❌ Indicaciones incompletas");
+
+ if(canvas.toDataURL()===document.createElement("canvas").toDataURL())
+ err.push("❌ Firma obligatoria");
+
+ errores.innerHTML=err.join("<br>");
+ if(err.length>0){ok.innerHTML="";return;}
+
+ ok.innerHTML="✔ EVOLUCIÓN CONFORME – ENVIADA";
+
+ enviarSheets();
 });
 
 function enviarSheets(){
- if(!validarFormulario()){
-   alert("⚠ Revise los campos obligatorios");
-   return;
- }
-
- const dxSeleccionados=[...document.querySelectorAll(".dxCheck:checked")]
- .map(d=>d.value).join(" | ") || dxLibre.value;
+ const dx=[...document.querySelectorAll(".dxCheck:checked")]
+ .map(d=>d.value).join(" | ")||dxLibre.value;
 
  fetch("https://script.google.com/macros/s/AKfycbwVb-7BkbkbrY_IcDnwiCXEO64lEJRys2BsawZsUy2_mGlFtD661sSkRQMeEfFGbkT0/exec",{
  method:"POST",
  headers:{"Content-Type":"application/json"},
  body:JSON.stringify({
   estudiante:estudiante.value,
-  tipoDoc:tipoDoc.value,
-  numDoc:numDoc.value,
-  nombre:nombre.value,
-  edad:edad.value,
-  sexo:sexo.value,
-  orientacion:orientacion.value,
-  etnia:etnia.value,
-  discapacidad:discapacidad.value,
-  direccion:direccion.value,
-  barrio:barrio.value,
-  ciudad:ciudad.value,
-  pais:pais.value,
-  eps:eps.value,
-  servicio:servicio.value,
-  peso:peso.value,
-  talla:talla.value,
+  documento:numDoc.value,
+  paciente:nombre.value,
   imc:imc.value,
-  tas:tas.value,
-  tad:tad.value,
-  fc:fc.value,
-  glasgow:glasgow.value,
-  subjetivo:subjetivo.value,
-  objetivo:objetivo.value,
-  analisis:analisis.value,
-  dx:dxSeleccionados,
-  medicamentos:medicamentos.value,
-  paraclinicos:paraclinicos.value,
-  cuidados:cuidados.value,
-  dieta:dieta.value,
-  medico:medico.value,
-  firma:firma.value,
-  conforme:"SI"
+  dx:dx,
+  firma:canvas.toDataURL()
  })
- }).then(res=>res.text())
- .then(()=>alert("✔ Evolución almacenada correctamente en Google Sheets"))
- .catch(()=>alert("❌ Error al enviar. Revise conexión o Apps Script"));
-}
-
-function descargarCSV(){
- const csv=[
- ["Estudiante","Paciente","DX","IMC","Médico","Firma","Conforme"],
- [estudiante.value,nombre.value,dxLibre.value,imc.value,medico.value,firma.value,"SI"]
- ].map(r=>r.join(",")).join("\n");
-
- const a=document.createElement("a");
- a.href=URL.createObjectURL(new Blob([csv],{type:"text/csv"}));
- a.download="evolucion_clinica.csv";
- a.click();
+ }).then(()=>alert("✔ Evolución guardada en Google Sheets"));
 }
 </script>
+
+</body>
+</html>
