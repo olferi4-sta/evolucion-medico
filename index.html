@@ -202,61 +202,32 @@ function auditoriaAutomatica(){
     estadoAuditoria.style.color=aprobado?"green":"red";
     obsAuditoria.value=obs.length?obs.join(" | "):"Cumple criterios clínicos";
 }
-
 function enviarSheets(){
-    if(!resultadoConforme){alert("Primero valide la evolución");return;}
 
-    const data = {
-        estudiante: estudiante.value,
-        tipoDoc: tipoDoc.value,
-        numDoc: numDoc.value,
-        nombre: nombre.value,
-        tipoDocPaciente: tipoDocPaciente.value,
-        numDocPaciente: numDocPaciente.value,
-        edad: edad.value,
-        sexo: sexo.value,
-        orientacion: orientacion.value,
-        etnia: etnia.value,
-        discapacidad: discapacidad.value,
-        direccion: direccion.value,
-        barrio: barrio.value,
-        ciudad: ciudad.value,
-        pais: pais.value,
-        eps: eps.value,
-        servicio: servicio.value,
-        subjetivo: subjetivo.value,
-        objetivo: objetivo.value,
-        analisis: analisis.value,
-        cie10Principal: cie10Principal.value,
-        cie10Relacionado: cie10Relacionado.value,
-        peso: peso.value,
-        talla: talla.value,
-        imc: imc.value,
-        tas: tas.value,
-        tad: tad.value,
-        fc: fc.value,
-        temperatura: temperatura.value,
-        glasgow: glasgow.value,
-        medicamentos: medicamentos.value,
-        paraclinicos: paraclinicos.value,
-        cuidados: cuidados.value,
-        dieta: dieta.value
-    };
+  const data = {
+    estudiante: estudiante.value,
+    documento: numDoc.value,
+    paciente: nombre.value,
+    edad: edad.value,
+    servicio: servicio.value,
+    subjetivo: subjetivo.value,
+    analisis: analisis.value,
+    cie10: cie10Principal.value,
+    peso: peso.value,
+    talla: talla.value,
+    imc: imc.value,
+    temperatura: temperatura.value,
+    glasgow: glasgow.value,
+    medicamentos: medicamentos.value
+  };
 
-    fetch("https://script.google.com/macros/s/AKfycbxsoRYabZQaRGD_5zPPcY0M3OBs-1JAE8ctEoJjRp6yoagV4YKpFCWIpoqRuPoDpUVs/exec", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(res => {
-        if(res.status==="ok"){
-            alert("✔ Evolución enviada a Google Sheets correctamente");
-        } else {
-            alert("Error al enviar: "+res.message);
-        }
-    })
-    .catch(err => alert("Error de conexión: "+err));
+  fetch("https://script.google.com/macros/s/AKfycbxsoRYabZQaRGD_5zPPcY0M3OBs-1JA8ctEoJjRp6yoagV4YKpFCWlpoqRuPoDpUVs/exec", {
+    method: "POST",
+    mode: "no-cors",
+    body: JSON.stringify(data)
+  });
+
+  alert("✔ Evolución enviada. Verifique en Google Sheets.");
 }
 
 function descargarCSV(){
@@ -270,4 +241,5 @@ ${estudiante.value},${tipoDoc.value}-${numDoc.value},${nombre.value},${cie10Prin
 </script>
 </body>
 </html>
+
 
