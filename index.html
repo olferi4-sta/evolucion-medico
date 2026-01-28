@@ -165,22 +165,17 @@ form.addEventListener("submit", e=>{
     e.preventDefault();
     let err=[];
 
-    // VALIDACIÓN ESTUDIANTE
     if(!estudiante.value) err.push("Nombre del estudiante obligatorio");
     if(!tipoDoc.value) err.push("Tipo de documento obligatorio");
     if(!numDoc.value) err.push("Número de documento obligatorio");
     if(tipoDoc.value==="CC" && !/^\d{6,}$/.test(numDoc.value)) err.push("Número de cédula inválido");
 
-    // EVOLUCIÓN
     if(subjetivo.value.length<30) err.push("Subjetivo insuficiente");
     if(analisis.value.length<50) err.push("Análisis insuficiente");
     if(!cie10Principal.value) err.push("Diagnóstico IAM obligatorio");
 
-    // EVITAR DUPLICADOS
     const docCompleto = tipoDoc.value + "-" + numDoc.value;
-    if(evoluciones.includes(docCompleto)){
-        err.push("Ya existe una evolución registrada para este documento");
-    }
+    if(evoluciones.includes(docCompleto)) err.push("Ya existe una evolución registrada para este documento");
 
     errores.innerHTML = err.join("<br>");
     resultadoConforme = err.length===0;
@@ -249,8 +244,9 @@ function enviarSheets(){
         dieta: dieta.value
     };
 
-    fetch("TU_URL_DE_WEB_APP_AQUI", {
+    fetch("TU_https://script.google.com/macros/s/AKfycbzoGe12a5pcfno5ba1CrJUmkQItJefzSsJ4vnX269FnPwpXIdVKiYyA4ni2OzfjAqY/exec{
         method: "POST",
+        headers: {"Content-Type": "application/json"},
         body: JSON.stringify(data)
     })
     .then(res => res.json())
